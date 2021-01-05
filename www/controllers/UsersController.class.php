@@ -6,13 +6,13 @@ class UsersController
     {
         echo "users default";
     }
-    
+
     public function addAction()
     {
         $user = new Users();
         $form = $user->getRegisterForm();
 
-    
+
         $v = new View("addUser", "front");
         $v->assign("form", $form);
     }
@@ -22,10 +22,10 @@ class UsersController
         $user = new Users();
         $form = $user->getRegisterForm();
         $method = strtoupper($form["config"]["method"]);
-        $data = $GLOBALS["_".$method];
+        $data = $GLOBALS["_" . $method];
 
 
-        if ($_SERVER['REQUEST_METHOD']==$method && !empty($data)) {
+        if ($_SERVER['REQUEST_METHOD'] == $method && !empty($data)) {
             $validator = new Validator($form, $data);
             $form["errors"] = $validator->errors;
 
@@ -49,19 +49,18 @@ class UsersController
         $form = $user->getLoginForm();
 
 
-
         $method = strtoupper($form["config"]["method"]);
-        $data = $GLOBALS["_".$method];
-        if ($_SERVER['REQUEST_METHOD']==$method && !empty($data)) {
+        $data = $GLOBALS["_" . $method];
+        if ($_SERVER['REQUEST_METHOD'] == $method && !empty($data)) {
             $validator = new Validator($form, $data);
             $form["errors"] = $validator->errors;
 
             if (empty($errors)) {
-                $token = md5(substr(uniqid().time(), 4, 10)."mxu(4il");
+                $token = md5(substr(uniqid() . time(), 4, 10) . "mxu(4il");
                 // TODO: connexion
             }
         }
-    
+
         $v = new View("loginUser", "front");
         $v->assign("form", $form);
     }
